@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: inspireai
+      MYSQL_DATABASE: inspireaiquotes
+      #SMYSQL_USER: root
+      MYSQL_PASSWORD: inspireai
+    ports:
+      - "3309:3309"
+    networks:
+      - app-network
+
+  app:
+    image: inspireai-quoting-image
+    container_name: app-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
