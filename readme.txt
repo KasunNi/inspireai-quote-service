@@ -40,6 +40,10 @@ CREATE TABLE quote_tag (
 
 
 
+INSERT INTO quote (title, quote, tags) VALUES ('Example Title 1', 'This is the first example quote.', 'example, first, quote');
+
+
+INSERT INTO quote (title, quote) VALUES ('Example Title 2', 'This is the second example quote.');
 
 
 
