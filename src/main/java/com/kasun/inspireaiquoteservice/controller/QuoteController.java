@@ -7,12 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,6 +23,7 @@ public class QuoteController {
 	@Autowired
 	private QuoteService quoteService;
 
+	@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 	@GetMapping("/quotes/{id}")
 	private ResponseEntity<QuoteResponse> getQuoteDetails(@PathVariable("id") int id) {
 		QuoteResponse quote = quoteService.getQuoteById(id);
@@ -32,6 +35,7 @@ public class QuoteController {
         }
 	}
 	
+	@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 	@GetMapping("/quotes")
     public ResponseEntity<List<QuoteResponse>> getAllQuotes() {
         List<QuoteResponse> quotes = quoteService.getAllQuotes();
@@ -42,12 +46,14 @@ public class QuoteController {
         }
     }
 	
+	@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 	@PostMapping("/quotes")
     public ResponseEntity<QuoteResponse> createQuote(@RequestBody Quote newQuote) {
 		QuoteResponse createdQuote = quoteService.createQuote(newQuote);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdQuote); // 201 Created
     }
 	
+	@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 	@PutMapping("/quotes/{id}")
     public ResponseEntity<QuoteResponse> updateQuote(@PathVariable("id") int id,
                                                    @RequestBody Quote modifiedQuote) {
@@ -55,6 +61,7 @@ public class QuoteController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedQuote); // 200 OK
     }
 	
+	@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 	@DeleteMapping("/quotes/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
 		quoteService.deleteQuoteById(id);
